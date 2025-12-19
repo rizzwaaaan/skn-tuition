@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const About = () => {
   return (
@@ -108,7 +109,8 @@ const About = () => {
 
           {/* Button */}
           <div className="pt-6 flex justify-center lg:justify-start">
-            <button
+            <Link
+              href="/#enroll"
               className="
                 relative flex items-center
                 bg-[#34d399] hover:bg-[#10b981]
@@ -133,10 +135,11 @@ const About = () => {
                   text-2xl
                   shadow-md
                 "
+                aria-hidden
               >
                 →
               </span>
-            </button>
+            </Link>
           </div>
         </div>
       </div>
