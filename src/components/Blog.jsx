@@ -42,7 +42,7 @@ const Stats = () => {
             {/* --- DOTS DECOR 1 (Under Heading) --- */}
             <div className="absolute bottom-20 left-0 translate-x-[200px] lg:translate-x-[345px] hidden md:block z-0">
               <Image 
-                src="/dots-grid.png"
+                src="/dots-grid.webp"
                 alt="Dots Decoration"
                 width={120}
                 height={80}
@@ -123,7 +123,7 @@ const Stats = () => {
           {/* --- DOTS DECOR 2 (Bottom Left) --- */}
           <div className="absolute bottom-5 left-5 md:bottom-10 md:left-20 z-0 hidden md:block">
              <Image 
-               src="/dots-grid.png" 
+               src="/dots-grid.webp" 
                alt="Dots Decoration" 
                width={120} 
                height={80} 
