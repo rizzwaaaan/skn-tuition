@@ -119,11 +119,11 @@ const Testimonial = () => {
               </div>
 
               <p className="text-gray-200 text-sm md:text-base leading-relaxed mb-8 w-full">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquipLorem ipsum dolor sit amet, consectetur
-                adipiscing elit
+                “The greatest sign of success for a teacher is to be able to
+                say, ‘The children are now working as if I did not exist.’
+                Education is not something which the teacher does, but a natural
+                process which develops spontaneously in the human being when
+                guided with care, patience, and respect.”
               </p>
 
               <div className="flex items-center gap-4">
@@ -151,8 +151,7 @@ const Testimonial = () => {
                 </div>
 
                 <div>
-                  <h4 className="text-white font-bold text-lg">Lakshmi Dev</h4>
-                  <p className="text-gray-300 text-xs">Software Developer</p>
+                  <h4 className="text-white font-bold text-lg">Maria Montessori</h4>
                 </div>
               </div>
 

@@ -1,47 +1,76 @@
+"use client";
+
 import Image from "next/image";
+import { useState } from "react";
 
 const Courses = () => {
-  const courses = [
-    {
-      id: 1,
-      title: "C PROGRAMMING",
-      image: "/course-c.webp",
-      rating: "4.7",
-      category: "Development",
-    },
-    {
-      id: 2,
-      title: "OOPS JAVA",
-      image: "/course-java.webp",
-      rating: "4.7",
-      category: "Development",
-    },
-    {
-      id: 3,
-      title: "DATA STRUCTURE BASIC",
-      image: "/course-dsa.webp",
-      rating: "4.7",
-      category: "Development",
-    },
+  // 1. Base images
+  const baseImages = [
+    "/course-c.webp",
+    "/course-java.webp",
+    "/course-dsa.webp",
   ];
+
+  // 2. Full Course List
+  const courseTitles = [
+    "C PROGRAMMING",
+    "OOPS JAVA",
+    "DATA STRUCTURE BASIC",
+    "Programming in C",
+    "Computational Thinking & Programming",
+    "Python Programming",
+    "Object Oriented Programming (Java)",
+    "Data Structures & Algorithms",
+    "Digital Logic & Computer Organization",
+    "Microprocessors & Microcontrollers",
+    "Operating Systems",
+    "Database Management Systems",
+    "Computer Networks",
+    "Software Engineering",
+    "Web Technologies",
+    "Design & Analysis of Algorithms",
+    "Compiler Design",
+    "Theory of Computation",
+    "AI & Machine Learning (Basics)",
+    "Data Science",
+    "Cloud Computing",
+    "Cyber Security",
+  ];
+
+  // 3. Map to objects
+  const allCourses = courseTitles.map((title, index) => ({
+    id: index,
+    title: title,
+    image: baseImages[index % 3], // Cycle 3 images
+    rating: "4.7",
+    category: "Development",
+  }));
+
+  // 4. Pagination Settings
+  const itemsPerPage = 3;
+  const [currentPage, setCurrentPage] = useState(0);
+  const totalPages = Math.ceil(allCourses.length / itemsPerPage);
+
+  // Next Page Handler
+  const handleNext = () => {
+    setCurrentPage((prev) => (prev + 1) % totalPages);
+  };
+
+  // Get current slice
+  const currentCourses = allCourses.slice(
+    currentPage * itemsPerPage,
+    (currentPage + 1) * itemsPerPage
+  );
 
   return (
     <section id="courses" className="w-full py-12 md:py-24 bg-white">
-      
-      {/* MAIN CONTAINER 
-          - Mobile: overflow-visible is fine here because we want the button below.
-          - Desktop (xl): overflow-visible allows the button to sit outside the right edge.
-      */}
+      {/* MAIN CONTAINER */}
       <div className="relative w-[95%] max-w-[1600px] mx-auto bg-[#f9f9f9] 
                       px-6 py-12 md:px-16 md:py-32 lg:px-32 
-                      rounded-[30px] md:rounded-[50px]
                       mb-10 xl:mb-0
                       overflow-visible">
         
-        {/* BACKGROUND IMAGE WRAPPER 
-            IMPORTANT: Since the parent is overflow-visible, we need this wrapper 
-            to enforce the rounded corners on the background image.
-        */}
+        {/* BACKGROUND IMAGE WRAPPER (Restored to original style) */}
         <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
           <Image
             src="/course-bg.webp"
@@ -67,13 +96,17 @@ const Courses = () => {
             </h2>
           </div>
 
-          <div className="relative">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {courses.map((course) => (
+          <div className="relative min-h-[400px]">
+            {/* GRID CONTAINER */}
+            <div 
+              key={currentPage} 
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-in fade-in slide-in-from-right-4 duration-500"
+            >
+              {currentCourses.map((course) => (
                 <div
                   key={course.id}
                   className="bg-white p-4 shadow-sm hover:shadow-xl transition-shadow duration-300 
-                             border border-gray-100 "
+                             border border-gray-100"
                 >
                   <div className="relative w-full h-[240px] md:h-[35vh] lg:h-[32vh] overflow-hidden mb-4 group rounded-xl">
                     <Image
@@ -102,29 +135,29 @@ const Courses = () => {
                     </span>
                   </div>
 
-                  <h3 className="text-[#1e2246] font-bold text-lg uppercase mb-2">
+                  <h3 className="text-[#1e2246] font-bold text-lg uppercase mb-2 line-clamp-2 min-h-[56px]">
                     {course.title}
                   </h3>
                 </div>
               ))}
             </div>
 
-            {/* ARROW BUTTON POSITIONING:
-                1. Mobile (< xl): 'absolute bottom-[-70px] left-1/2 -translate-x-1/2' -> Centers it below the box.
-                2. Desktop (>= xl): 'xl:top-1/2 xl:right-[-90px] xl:left-auto xl:bottom-auto' -> Moves it right outside.
-            */}
+            {/* ARROW BUTTON */}
             <div className="absolute bottom-[-70px] left-1/2 -translate-x-1/2 
                             xl:top-1/2 xl:right-[-90px] xl:left-auto xl:bottom-auto xl:-translate-y-1/2 
-                            z-20">
+                            z-20 flex flex-col items-center gap-4">
+              
               <div className="relative w-14 h-14 xl:w-16 xl:h-16 cursor-pointer group">
                 {/* Back Circle Offset */}
                 <div className="absolute top-1/2 left-5 -translate-y-1/2 w-8 h-8 xl:w-9 xl:h-9 rounded-full bg-[#0d9488]" />
+                
                 {/* Front Button */}
                 <button
+                  onClick={handleNext}
                   className="absolute top-1/2 left-7 -translate-y-1/2
                              w-8 h-8 xl:w-9 xl:h-9 rounded-full bg-[#14b8a6]
                              flex items-center justify-center text-white
-                             shadow-lg transition-all group-hover:bg-[#0fb39a]"
+                             shadow-lg transition-all group-hover:bg-[#0fb39a] active:scale-90"
                 >
                   <svg
                     className="w-5 h-5"
@@ -141,6 +174,19 @@ const Courses = () => {
                   </svg>
                 </button>
               </div>
+
+              {/* Dots Indicator */}
+              <div className="flex gap-1 xl:absolute xl:top-[60px] xl:left-1/2 xl:-translate-x-1/4">
+                 {[...Array(totalPages)].map((_, i) => (
+                    <div 
+                      key={i}
+                      className={`h-1.5 rounded-full transition-all duration-300 ${
+                        i === currentPage ? "w-4 bg-[#14b8a6]" : "w-1.5 bg-gray-300"
+                      }`}
+                    />
+                 ))}
+              </div>
+
             </div>
             
           </div>
