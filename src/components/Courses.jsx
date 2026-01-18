@@ -63,18 +63,15 @@ const Courses = () => {
   // Get current slice
   const currentCourses = allCourses.slice(
     currentPage * itemsPerPage,
-    (currentPage + 1) * itemsPerPage
+    (currentPage + 1) * itemsPerPage,
   );
 
   return (
     <section id="courses" className="w-full py-12 md:py-24 bg-white">
       {/* MAIN CONTAINER */}
-      <div className="relative w-[95%] max-w-[1600px] mx-auto bg-[#f9f9f9] 
-                      px-6 py-12 md:px-16 md:py-32 lg:px-32 
-                      mb-24 xl:mb-0 
-                      overflow-visible">
+      <div className="relative w-[95%] max-w-[1600px] mx-auto bg-[#f9f9f9] px-6 py-12 md:px-16 md:py-32 lg:px-32 mb-24 xl:mb-0 overflow-visible">
         {/* mb-24 on mobile ensures space for the bottom navigation */}
-        
+
         {/* BACKGROUND IMAGE WRAPPER */}
         <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
           <Image
@@ -102,11 +99,10 @@ const Courses = () => {
           </div>
 
           {/* GRID WRAPPER */}
-          <div className="relative"> 
-            
+          <div className="relative">
             {/* COURSES GRID */}
-            <div 
-              key={currentPage} 
+            <div
+              key={currentPage}
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-in fade-in slide-in-from-right-4 duration-500 min-h-[400px]"
             >
               {currentCourses.map((course) => (
@@ -150,12 +146,14 @@ const Courses = () => {
             </div>
 
             {/* === CONTROLS CONTAINER === */}
-            
+
             {/* 1. PREVIOUS BUTTON */}
             {/* Mobile: Bottom Left | Desktop: Center Left (Outside) */}
-            <div className="absolute bottom-[-80px] left-[15%] -translate-x-1/2 
+            <div
+              className="absolute bottom-[-80px] left-[15%] -translate-x-1/2 
                             xl:top-1/2 xl:left-[-70px] xl:bottom-auto xl:-translate-y-1/2 
-                            z-20">
+                            z-20"
+            >
               <div className="relative w-14 h-14 xl:w-16 xl:h-16 cursor-pointer group">
                 <div className="absolute top-1/2 left-5 -translate-y-1/2 w-8 h-8 xl:w-9 xl:h-9 rounded-full bg-[#0d9488]" />
                 <button
@@ -165,8 +163,18 @@ const Courses = () => {
                              flex items-center justify-center text-white
                              shadow-lg transition-all group-hover:bg-[#0fb39a] active:scale-90"
                 >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M10 19l-7-7m0 0l7-7m-7 7h18"
+                    />
                   </svg>
                 </button>
               </div>
@@ -174,9 +182,11 @@ const Courses = () => {
 
             {/* 2. NEXT BUTTON */}
             {/* Mobile: Bottom Right | Desktop: Center Right (Outside) */}
-            <div className="absolute bottom-[-80px] right-[15%] translate-x-1/2 
+            <div
+              className="absolute bottom-[-80px] right-[15%] translate-x-1/2 
                             xl:top-1/2 xl:right-[-50px] xl:left-auto xl:bottom-auto xl:-translate-y-1/2 
-                            z-20">
+                            z-20"
+            >
               <div className="relative w-14 h-14 xl:w-16 xl:h-16 cursor-pointer group">
                 <div className="absolute top-1/2 left-5 -translate-y-1/2 w-8 h-8 xl:w-9 xl:h-9 rounded-full bg-[#0d9488]" />
                 <button
@@ -186,8 +196,18 @@ const Courses = () => {
                              flex items-center justify-center text-white
                              shadow-lg transition-all group-hover:bg-[#0fb39a] active:scale-90"
                 >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M14 5l7 7m0 0l-7 7m7-7H3"
+                    />
                   </svg>
                 </button>
               </div>
@@ -196,16 +216,15 @@ const Courses = () => {
             {/* 3. DOTS INDICATOR - CENTERED INDEPENDENTLY */}
             {/* Mobile: Bottom Center | Desktop: Bottom Center (Below Grid) */}
             <div className="absolute bottom-[-80px] xl:bottom-[-60px] left-1/2 -translate-x-1/2 flex gap-1 z-20 items-center justify-center h-14">
-                {[...Array(totalPages)].map((_, i) => (
-                  <div 
-                    key={i}
-                    className={`h-1.5 rounded-full transition-all duration-300 ${
-                      i === currentPage ? "w-4 bg-[#14b8a6]" : "w-1.5 bg-gray-300"
-                    }`}
-                  />
-                ))}
+              {[...Array(totalPages)].map((_, i) => (
+                <div
+                  key={i}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    i === currentPage ? "w-4 bg-[#14b8a6]" : "w-1.5 bg-gray-300"
+                  }`}
+                />
+              ))}
             </div>
-
           </div>
         </div>
       </div>

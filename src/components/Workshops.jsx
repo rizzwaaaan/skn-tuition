@@ -1,6 +1,17 @@
+"use client"; // 1. Required for onClick events
 import Image from "next/image";
+// Link is no longer needed for this specific button
 
 const Workshops = () => {
+
+  // 2. Function to handle smooth scrolling without changing URL
+  const scrollToEnroll = () => {
+    const section = document.getElementById("enroll");
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   return (
     <section className="w-full bg-white py-12 md:py-32 overflow-hidden relative">
       
@@ -69,7 +80,11 @@ const Workshops = () => {
           </div>
 
           <div className="pt-4">
-            <button className="relative flex items-center bg-[#2ecf9f] hover:bg-[#25b98e] text-white font-semibold pl-8 pr-20 py-4 rounded-full shadow-lg transition-all hover:-translate-y-1">
+            {/* 3. Replaced Link with onClick handler */}
+            <button 
+              onClick={scrollToEnroll}
+              className="relative flex items-center bg-[#2ecf9f] hover:bg-[#25b98e] text-white font-semibold pl-8 pr-20 py-4 rounded-full shadow-lg transition-all hover:-translate-y-1"
+            >
               <span className="text-lg">Contact Now</span>
               <span className="absolute right-0 top-1/2 -translate-y-1/2 w-14 h-14 bg-[#43e0b4] rounded-full flex items-center justify-center text-2xl">
                 →
