@@ -51,9 +51,13 @@ const Courses = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const totalPages = Math.ceil(allCourses.length / itemsPerPage);
 
-  // Next Page Handler
+  // --- HANDLERS ---
   const handleNext = () => {
     setCurrentPage((prev) => (prev + 1) % totalPages);
+  };
+
+  const handlePrev = () => {
+    setCurrentPage((prev) => (prev - 1 + totalPages) % totalPages);
   };
 
   // Get current slice
@@ -67,10 +71,11 @@ const Courses = () => {
       {/* MAIN CONTAINER */}
       <div className="relative w-[95%] max-w-[1600px] mx-auto bg-[#f9f9f9] 
                       px-6 py-12 md:px-16 md:py-32 lg:px-32 
-                      mb-10 xl:mb-0
+                      mb-24 xl:mb-0 
                       overflow-visible">
+        {/* mb-24 on mobile ensures space for the bottom navigation */}
         
-        {/* BACKGROUND IMAGE WRAPPER (Restored to original style) */}
+        {/* BACKGROUND IMAGE WRAPPER */}
         <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
           <Image
             src="/course-bg.webp"
@@ -96,11 +101,13 @@ const Courses = () => {
             </h2>
           </div>
 
-          <div className="relative min-h-[400px]">
-            {/* GRID CONTAINER */}
+          {/* GRID WRAPPER */}
+          <div className="relative"> 
+            
+            {/* COURSES GRID */}
             <div 
               key={currentPage} 
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-in fade-in slide-in-from-right-4 duration-500"
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-in fade-in slide-in-from-right-4 duration-500 min-h-[400px]"
             >
               {currentCourses.map((course) => (
                 <div
@@ -142,16 +149,36 @@ const Courses = () => {
               ))}
             </div>
 
-            {/* ARROW BUTTON */}
-            <div className="absolute bottom-[-70px] left-1/2 -translate-x-1/2 
-                            xl:top-1/2 xl:right-[-90px] xl:left-auto xl:bottom-auto xl:-translate-y-1/2 
-                            z-20 flex flex-col items-center gap-4">
-              
+            {/* === CONTROLS CONTAINER === */}
+            
+            {/* 1. PREVIOUS BUTTON */}
+            {/* Mobile: Bottom Left | Desktop: Center Left (Outside) */}
+            <div className="absolute bottom-[-80px] left-[15%] -translate-x-1/2 
+                            xl:top-1/2 xl:left-[-70px] xl:bottom-auto xl:-translate-y-1/2 
+                            z-20">
               <div className="relative w-14 h-14 xl:w-16 xl:h-16 cursor-pointer group">
-                {/* Back Circle Offset */}
                 <div className="absolute top-1/2 left-5 -translate-y-1/2 w-8 h-8 xl:w-9 xl:h-9 rounded-full bg-[#0d9488]" />
-                
-                {/* Front Button */}
+                <button
+                  onClick={handlePrev}
+                  className="absolute top-1/2 left-7 -translate-y-1/2
+                             w-8 h-8 xl:w-9 xl:h-9 rounded-full bg-[#14b8a6]
+                             flex items-center justify-center text-white
+                             shadow-lg transition-all group-hover:bg-[#0fb39a] active:scale-90"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            {/* 2. NEXT BUTTON */}
+            {/* Mobile: Bottom Right | Desktop: Center Right (Outside) */}
+            <div className="absolute bottom-[-80px] right-[15%] translate-x-1/2 
+                            xl:top-1/2 xl:right-[-50px] xl:left-auto xl:bottom-auto xl:-translate-y-1/2 
+                            z-20">
+              <div className="relative w-14 h-14 xl:w-16 xl:h-16 cursor-pointer group">
+                <div className="absolute top-1/2 left-5 -translate-y-1/2 w-8 h-8 xl:w-9 xl:h-9 rounded-full bg-[#0d9488]" />
                 <button
                   onClick={handleNext}
                   className="absolute top-1/2 left-7 -translate-y-1/2
@@ -159,36 +186,26 @@ const Courses = () => {
                              flex items-center justify-center text-white
                              shadow-lg transition-all group-hover:bg-[#0fb39a] active:scale-90"
                 >
-                  <svg
-                    className="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M14 5l7 7m0 0l-7 7m7-7H3"
-                    />
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                   </svg>
                 </button>
               </div>
-
-              {/* Dots Indicator */}
-              <div className="flex gap-1 xl:absolute xl:top-[60px] xl:left-1/2 xl:-translate-x-1/4">
-                 {[...Array(totalPages)].map((_, i) => (
-                    <div 
-                      key={i}
-                      className={`h-1.5 rounded-full transition-all duration-300 ${
-                        i === currentPage ? "w-4 bg-[#14b8a6]" : "w-1.5 bg-gray-300"
-                      }`}
-                    />
-                 ))}
-              </div>
-
             </div>
-            
+
+            {/* 3. DOTS INDICATOR - CENTERED INDEPENDENTLY */}
+            {/* Mobile: Bottom Center | Desktop: Bottom Center (Below Grid) */}
+            <div className="absolute bottom-[-80px] xl:bottom-[-60px] left-1/2 -translate-x-1/2 flex gap-1 z-20 items-center justify-center h-14">
+                {[...Array(totalPages)].map((_, i) => (
+                  <div 
+                    key={i}
+                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                      i === currentPage ? "w-4 bg-[#14b8a6]" : "w-1.5 bg-gray-300"
+                    }`}
+                  />
+                ))}
+            </div>
+
           </div>
         </div>
       </div>
